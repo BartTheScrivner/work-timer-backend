@@ -1,2 +1,0 @@
-class TaskTagsController < ApplicationController
-end

@@ -4,8 +4,6 @@ class CreateTasks < ActiveRecord::Migration[6.0]
       t.string :title
       t.integer :benchmark
       t.belongs_to :project, null: false, foreign_key: true
-      t.integer :total
-      t.integer :last_session
 
       t.timestamps
     end
