@@ -11,4 +11,8 @@ class Task < ApplicationRecord
   def remaining
     self.total_time - self.benchmark
   end
+
+  def overtime
+    self.total_time > self.benchmark
+  end
 end
