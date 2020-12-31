@@ -13,9 +13,13 @@ class Api::V1::ProjectsController < ApplicationController
 
   def create
     user = User.find(params[:user_id])
-    project = Project.new(params[:project])
+    project = Project.new(project_params)
     user.projects.push(project)
     render json: project
   end
 
+  private
+  def project_params
+    params.require(:project).permit(:title, :notes)
+  end
 end

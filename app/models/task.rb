@@ -15,4 +15,8 @@ class Task < ApplicationRecord
   def overtime
     self.total_time > self.benchmark
   end
+
+  def number_of_sessions
+    self.task_sessions.count
+  end
 end
