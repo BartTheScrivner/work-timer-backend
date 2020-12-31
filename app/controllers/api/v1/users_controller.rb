@@ -24,20 +24,6 @@ class Api::V1::UsersController < ApplicationController
     render json: {user: UserSerializer.new(user).serializable_hash, token: encode_token({user_id: user.id})}
   end
 
-  def query
-    headers = request.headers["Authorization"]
-    token = headers.split(" ")[1]
-    user_id = JWT.decode(token, "fixthis", "HS256")[0]["user_id"]
-    if params[:genreFilters].length > 0 || params[:instrumentFilters].length > 0
-      genre_filtered_users = User.all.select{ |user| (user.genre_ids & params[:genreFilters]).any? }
-      inst_filtered_users = User.all.select{ |user| (user.instrument_ids & params[:instrumentFilters]).any? }
-      filtered_users = genre_filtered_users + inst_filtered_users
-    else 
-      filtered_users = User.all
-    end
-    render json: filtered_users.select{ |user| user.id != user_id}, only: [:id, :first_name, :last_name, :bio, :img_url], include: [:songs, :genres, :instruments]
-  end
-
   private 
 
   def user_params
