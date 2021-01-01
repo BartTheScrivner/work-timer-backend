@@ -16,7 +16,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def show
-    render json: user
+    render json: user, include: [:projects]
   end
 
   def update

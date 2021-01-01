@@ -4,8 +4,7 @@ class Api::V1::AuthController < ApplicationController
 
     user = User.find_by(email: params[:email])
     if user && user.authenticate(params[:password])
-      options = {include: [:match_chats, :songs, :photos]}
-      render json: {user: UserSerializer.new(user, options).serializable_hash, token: encode_token({user_id: user.id})}
+      render json: user
     else
       render json: {error: "Invalid email or password"}
     end
